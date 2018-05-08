@@ -1,25 +1,37 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
 
-import Counter from './components/counter/counter';
-import Form from './components/form/form';
+import Oranges from './components/oranges/oranges';
+import Bananas from './components/bananas/bananas';
+import {Route, Link} from 'react-router-dom';
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      message: 'hello'
-    };
-  }
 
   render() {
-    return (
+    return(
       <div>
-        <Form />
-        Welcome.
-        <Counter message={this.state.message} />
+        <div>
+          <h1>React Router</h1>
+          <Link to="/bananas">Bananas</Link>
+          <hr/>
+          <Link to="/oranges">Oranges</Link>
+        </div>
+        <div>
+          <Route
+            path='/bananas'
+            render={() => (
+              <Bananas/>
+            )}
+          />
+          <Route
+            path='/oranges'
+            render={() => (
+              <Oranges/>
+            )}
+          />
+        </div>
       </div>
-    );
+    )
   }
 }
 
