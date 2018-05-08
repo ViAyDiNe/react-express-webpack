@@ -2,6 +2,8 @@ import React from 'react';
 
 import styles from './style.scss';
 
+import { withRouter } from 'react-router-dom';
+
 class Items extends React.Component {
   constructor() {
     super();
@@ -26,20 +28,20 @@ class Items extends React.Component {
 
     this.setState({requestSent: true});
 
-    // enumerate a slow query
     setTimeout(() => {
-      // throw "Too big";
       const newItemList = [{number: Math.random()}, {number: Math.random()}, {number: Math.random()}];
-      this.setState({requestSent: false});
-      this.setState({items: [...this.state.items, ...newItemList]});
-    }, 2000);
-  }
+      this.setState({
+        requestSent: false,
+        items: [...this.state.items, ...newItemList]
+      });
 
-  componentDidCatch(error, info) {
-    // Display fallback UI
-    this.setState({hasError: true});
-    // You can also log the error to an error reporting service
-    console.log(error, info);
+      let page = parseInt( this.props.match.params.id ) + 1;
+
+      this.props.history.push({
+        pathname: `/page/${page}`
+      })
+
+    }, 2000);
   }
 
   handleOnScroll() {
@@ -85,4 +87,4 @@ class Items extends React.Component {
   }
 }
 
-export default Items;
+export default withRouter(Items);
